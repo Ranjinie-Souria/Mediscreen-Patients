@@ -1,31 +1,15 @@
 package com.mediscreen.repository;
 
-import java.util.List;
-
 import com.mediscreen.model.Patient;
 
-public interface IPatientRepository{
+import java.util.List;
 
-	/**
-	 * @param name - the name of the Patient to find
-	 * @return the Patient
-	 */
-	public Patient findByName(String name);	
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-	/**
-	 * @return all the Patients
-	 */
-	public List<Patient> findAll();
+@Repository
+public interface IPatientRepository extends JpaRepository<Patient, Integer>{
 
-	/**
-	 * @param name - the name of the Patient to delete
-	 */
-	public void deleteByName(String name);
-
-	/**
-	 * @param person - the Patient to save
-	 */
-	public void save(Patient patient);
-
+	List<Patient> findByAddress(String address);
 	
 }

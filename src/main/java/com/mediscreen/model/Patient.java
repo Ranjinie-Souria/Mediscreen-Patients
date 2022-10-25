@@ -1,18 +1,35 @@
 package com.mediscreen.model;
+import java.sql.Date;
 
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
-
-@Component
+@Entity
+@Table(name = "Patient")
 public class Patient {
 	
+	@Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+	@Column(name="patientId")
+	private Integer patientId;
+	@Column(name="familyName")
 	private String familyName;
+	@Column(name="firstName")
 	private String firstName;
+	@Column(name="birthdate")
 	private Date birthdate;
+	@Column(name="gender")
 	private String gender;
+	@Column(name="address")
 	private String address;
+	@Column(name="phone")
 	private String phone;
+	
+
 	
 	public Patient(String familyName, String firstName, Date birthdate, String gender, String address, String phone) {
 		this.familyName = familyName;
@@ -21,6 +38,14 @@ public class Patient {
 		this.gender = gender;
 		this.address = address;
 		this.phone = phone;
+	}
+
+	public Integer getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
 	}
 
 	public String getFamilyName() {
