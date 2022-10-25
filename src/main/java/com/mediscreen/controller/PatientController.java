@@ -3,7 +3,6 @@ package com.mediscreen.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,8 +22,12 @@ public class PatientController {
 	@Autowired
 	private PatientService patientService;
 
+	/**
+	 * Shows all patients
+	 * @return A page with a list of the patients
+	 */
     @RequestMapping("/patients")
-    public ModelAndView home(Model model)
+    public ModelAndView home()
     {
     	logger.info("Showing all Patients");
     	ModelAndView mav = new ModelAndView();
@@ -33,13 +36,23 @@ public class PatientController {
         return mav;
     }
 
-
+	/**
+	 * Shows the form to add a new patient
+	 * @param patient A patient object
+	 * @return The form page
+	 */
     @GetMapping("/patients/add")
     public ModelAndView addPatient(Patient patient) {
     	logger.info("Showing add form");
         return new ModelAndView("patients/add");
     }
     
+	/**
+	 * Create - Adds the new patient
+	 * @param patient The new patient
+	 * @param result BindingResult object
+	 * @return The page with a list of all patients
+	 */
     @PostMapping("/patients/validate")
     public ModelAndView validate(Patient patient, BindingResult result) {
 		ModelAndView modelAndView =  new ModelAndView("redirect:/patients/");
