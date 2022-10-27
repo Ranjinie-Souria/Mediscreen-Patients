@@ -1,14 +1,14 @@
 package com.mediscreen.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.mediscreen.model.Patient;
 import com.mediscreen.service.PatientService;
@@ -24,42 +24,36 @@ public class PatientController {
 
 	/**
 	 * Shows all patients
-	 * @return A page with a list of the patients
+	 * @return all patients
 	 */
     @RequestMapping("/patients")
-    public ModelAndView home()
+    public List<Patient> getPatients()
     {
-    	logger.info("Showing all Patients");
-    	ModelAndView mav = new ModelAndView();
-        mav.addObject("patients", patientService.getPatients());
-        mav.setViewName("patients/list");
-        return mav;
+    	return patientService.getPatients();
     }
 
-	/**
-	 * Shows the form to add a new patient
-	 * @param patient A patient object
-	 * @return The form page
-	 */
-    @GetMapping("/patients/add")
-    public ModelAndView addPatient(Patient patient) {
-    	logger.info("Showing add form");
-        return new ModelAndView("patients/add");
-    }
+//	/**
+//	 * Shows the form to add a new patient
+//	 * @param patient A patient object
+//	 * @return The form page
+//	 */
+//    @GetMapping("/patients/add")
+//    public ModelAndView addPatient(Patient patient) {
+//    	logger.info("Showing add form");
+//        return new ModelAndView("patients/add");
+//    }
     
 	/**
 	 * Create - Adds the new patient
 	 * @param patient The new patient
 	 * @param result BindingResult object
-	 * @return The page with a list of all patients
+	 * @return all patients
 	 */
     @PostMapping("/patients/validate")
-    public ModelAndView validate(Patient patient, BindingResult result) {
-		ModelAndView modelAndView =  new ModelAndView("redirect:/patients/");
-		modelAndView.addObject("patients", patientService.getPatients());
+    public List<Patient> validatePatient(Patient patient, BindingResult result) {
 		patientService.savePatient(patient);
 		logger.info("Added patient : "+ patient.getFirstName()+" "+patient.getFamilyName());
-        return modelAndView;
+        return patientService.getPatients();
     }
 
 
