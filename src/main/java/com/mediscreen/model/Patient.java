@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Patient {
 	
 	@Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="patientId")
 	private Integer patientId;
 	@Column(name="familyName")
@@ -23,10 +23,10 @@ public class Patient {
 	@Column(name="firstName")
 	private String firstName;
 	/**
-	 * Birthdate Format must be "dd-MM-yyyy"
+	 * Birthdate Format must be "yyyy-MM-dd"
 	 */
 	@Column(name="birthdate")
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date birthdate;
 	@Column(name="gender")
 	private String gender;
