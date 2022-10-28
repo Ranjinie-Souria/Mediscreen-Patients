@@ -6,8 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mediscreen.model.Patient;
@@ -26,7 +27,7 @@ public class PatientController {
 	 * Shows all patients
 	 * @return all patients
 	 */
-    @RequestMapping("/patients")
+	@GetMapping("/patients")
     public List<Patient> getPatients()
     {
     	return patientService.getPatients();
@@ -46,11 +47,10 @@ public class PatientController {
 	/**
 	 * Create - Adds the new patient
 	 * @param patient The new patient
-	 * @param result BindingResult object
 	 * @return all patients
 	 */
-    @PostMapping("/patients/validate")
-    public List<Patient> validatePatient(Patient patient, BindingResult result) {
+    @PostMapping("/patients")
+    public List<Patient> validatePatient(@RequestBody Patient patient) {
 		patientService.savePatient(patient);
 		logger.info("Added patient : "+ patient.getFirstName()+" "+patient.getFamilyName());
         return patientService.getPatients();

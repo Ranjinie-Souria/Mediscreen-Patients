@@ -99,6 +99,12 @@ public class Patient {
 		this.phone = phone;
 	}
 	
+	@Override
+	public String toString() {
+		return "Id=" + patientId + ", familyName=" + familyName + ", firstName=" + firstName
+				+ ", birthdate=" + birthdate + ", gender=" + gender + ", address=" + address + ", phone=" + phone;
+	}
+	
 	
 	
 	
