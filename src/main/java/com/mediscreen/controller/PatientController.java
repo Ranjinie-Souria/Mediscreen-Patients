@@ -1,16 +1,20 @@
 package com.mediscreen.controller;
 
+import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mediscreen.model.Patient;
 import com.mediscreen.service.PatientService;
@@ -43,17 +47,6 @@ public class PatientController {
     {
     	return patientService.getPatientById(id).get();
     }
-
-//	/**
-//	 * Shows the form to add a new patient
-//	 * @param patient A patient object
-//	 * @return The form page
-//	 */
-//    @GetMapping("/patients/add")
-//    public ModelAndView addPatient(Patient patient) {
-//    	logger.info("Showing add form");
-//        return new ModelAndView("patients/add");
-//    }
     
 	/**
 	 * Create - Adds the new patient
@@ -61,10 +54,17 @@ public class PatientController {
 	 * @return all patients
 	 */
     @PostMapping("/patients")
-    public List<Patient> validatePatient(@RequestBody Patient patient) {
-		patientService.savePatient(patient);
-		logger.info("Added patient : "+ patient.getFirstName()+" "+patient.getFamilyName());
-        return patientService.getPatients();
+    public ResponseEntity<Patient> validatePatient(@RequestBody Patient patient) {
+		Patient patientAdded = patientService.savePatient(patient);
+		if (Objects.isNull(patientAdded)) {
+			return ResponseEntity.noContent().build();
+		}
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentRequest()
+				.path("/patients/{id}")
+				.buildAndExpand(patientAdded.getPatientId())
+				.toUri();
+		return ResponseEntity.created(location).build();
     }
 
 
