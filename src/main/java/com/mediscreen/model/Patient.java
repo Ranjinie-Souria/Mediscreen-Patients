@@ -10,6 +10,8 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "Patients")
 public class Patient {
@@ -22,8 +24,11 @@ public class Patient {
 	private String familyName;
 	@Column(name="firstName")
 	private String firstName;
+	/**
+	 * Birthdate Format must be "dd-MM-yyyy"
+	 */
 	@Column(name="birthdate")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	private Date birthdate;
 	@Column(name="gender")
 	private String gender;
