@@ -23,8 +23,9 @@ public class PatientService {
 		return patientRepository.findById(id);
 	}
 	
-	public Patient savePatient(Patient bidList) {
-		return patientRepository.save(bidList);		
+	public Patient savePatient(Patient patient) {
+		patientRepository.save(patient);
+		return patient;		
 	}
 	
 	public void deletePatientById(Integer id) {
