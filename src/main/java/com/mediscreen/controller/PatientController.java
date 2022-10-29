@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -56,7 +58,7 @@ public class PatientController {
 	 * @return ResponseEntity
 	 */
     @PostMapping("/patients")
-    public ResponseEntity<Patient> addPatient(@RequestBody Patient patient) {
+    public ResponseEntity<Patient> addPatient(@Valid @RequestBody Patient patient) {
 		Patient patientAdded = patientService.savePatient(patient);
 		if (Objects.isNull(patientAdded)) {
 			return ResponseEntity.noContent().build();

@@ -19,22 +19,32 @@ public class Patient {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="patientId")
 	private Integer patientId;
+	
 	@Column(name="familyName")
 	@Size(min = 1)
 	private String familyName;
+	
+	@Size(min = 1)
 	@Column(name="firstName")
 	private String firstName;
+	
 	/**
 	 * Birthdate Format must be "yyyy-MM-dd"
 	 */
 	@Column(name="birthdate")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date birthdate;
+	
+	@Size(min = 1)
 	@Column(name="gender")
 	private String gender;
+	
+	@Size(min = 1)
 	@Column(name="address")
 	private String address;
+	
 	@Column(name="phone")
+	@Size(min = 1)
 	private String phone;
 	
 	public Patient() {
