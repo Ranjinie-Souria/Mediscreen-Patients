@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -19,6 +20,7 @@ public class Patient {
 	@Column(name="patientId")
 	private Integer patientId;
 	@Column(name="familyName")
+	@Size(min = 1)
 	private String familyName;
 	@Column(name="firstName")
 	private String firstName;

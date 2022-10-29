@@ -3,6 +3,8 @@ package com.mediscreen.controller;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.mediscreen.exceptions.PatientNotFoundException;
 import com.mediscreen.model.Patient;
 import com.mediscreen.service.PatientService;
 
@@ -40,7 +43,11 @@ public class PatientController {
 	@GetMapping("/patients/{id}")
     public Patient getPatient(@PathVariable int id)
     {
-    	return patientService.getPatientById(id).get();
+		Optional<Patient> patient = patientService.getPatientById(id);
+	      if(patient.isEmpty()) {
+	    	  throw new PatientNotFoundException("The patient with id " + id + " does not exist.");
+	      }
+    	return patient.get();
     }
     
 	/**
