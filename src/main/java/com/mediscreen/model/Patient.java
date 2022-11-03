@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "Patients")
@@ -32,7 +32,7 @@ public class Patient {
 	 * Birthdate Format must be "yyyy-MM-dd"
 	 */
 	@Column(name="birthdate")
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthdate;
 	
 	@Size(min = 1)
