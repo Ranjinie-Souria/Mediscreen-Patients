@@ -60,6 +60,18 @@ public class PatientController {
 	      }
     	return patient.get();
     }
+	
+	/**
+	 * Shows all patients with family name
+	 * @return list of patients
+	 */
+	@ApiOperation(value = "Returns a list of patients with the family name")
+	@GetMapping("/patients/{familyName}")
+    public List<Patient> getPatientByFamilyName(@PathVariable String familyName)
+    {
+		List<Patient> patients = patientService.getPatientsByFamilyName(familyName);
+    	return patients;
+    }
     
 	/**
 	 * Create - Adds the new patient

@@ -11,5 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface IPatientRepository extends JpaRepository<Patient, Integer>{
 
 	List<Patient> findByAddress(String address);
+	List<Patient> findByFamilyName(String familyName);
 	
 }

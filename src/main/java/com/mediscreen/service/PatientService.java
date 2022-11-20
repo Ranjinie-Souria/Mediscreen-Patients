@@ -35,5 +35,9 @@ public class PatientService {
 	public List<Patient> getPatientsByAddress(String address) {
 		return patientRepository.findByAddress(address);
 	}
+	
+	public List<Patient> getPatientsByFamilyName(String familyName) {
+		return patientRepository.findByFamilyName(familyName);
+	}
 
 }
