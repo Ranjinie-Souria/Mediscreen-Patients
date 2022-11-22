@@ -66,7 +66,7 @@ public class PatientController {
 	 * @return list of patients
 	 */
 	@ApiOperation(value = "Returns a list of patients with the family name")
-	@GetMapping("/patients/{familyName}")
+	@GetMapping("/patients/familyName/{familyName}")
     public List<Patient> getPatientByFamilyName(@PathVariable String familyName)
     {
 		List<Patient> patients = patientService.getPatientsByFamilyName(familyName);
